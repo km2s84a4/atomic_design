@@ -1,10 +1,10 @@
-import { useContext } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
-import { UserContext } from "../../providers/UserProvider";
 import { SecondaryButton } from "../atoms/button/SecondaryButton";
 import { SearchInput } from "../molecules/SearchInput";
 import { UserCard } from "../oraganisms/user/UserCard";
+import { userState } from "../../store/userStore";
 
 const users = [...Array(10).keys()].map((val) => {
   return {
@@ -21,7 +21,9 @@ const users = [...Array(10).keys()].map((val) => {
 });
 
 export const Users = () => {
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  // const { userInfo, setUserInfo } = useContext(UserContext);
+  // recoil-tips:値と更新関数を共に使用する場合(useRecoilStateを使用した場合)は、値が変更された段階で再レンダリングされる
+  const [userInfo, setUserInfo] = useRecoilState(userState);
 
   const onClickSwitch = () => setUserInfo({ isAdmin: !userInfo.isAdmin });
 
