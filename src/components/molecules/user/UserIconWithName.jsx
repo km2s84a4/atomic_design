@@ -1,12 +1,14 @@
-import { memo, useContext } from "react";
+import { memo } from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { UserContext } from "../../../providers/UserProvider";
+import { userState } from "../../../store/userStore";
 
 // memo化することでpropsに変更が発生しないかぎり、再レンダリングを防ぐ
 export const UserIconWithName = memo((props) => {
   const { image, name } = props;
   // memo化したが、userInfo更新関数が実行された時は再レンダリングは実施される
-  const { userInfo } = useContext(UserContext);
+  // const { userInfo } = useContext(UserContext);
+  const userInfo = useRecoilValue(userState);
   const isAdmin = userInfo ? userInfo.isAdmin : false;
 
   return (
